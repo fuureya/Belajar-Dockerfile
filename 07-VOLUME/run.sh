@@ -1,5 +1,5 @@
-docker build --no-cache -t agilcore/node-volume:latest .
+docker build -t agilcore/node-volume:latest .
 
-docker create --name node-volume agilcore/node-volume:latest
+docker create --name node-volume --publish=3000:3000 agilcore/node-volume:latest
 
 docker start node-volume
