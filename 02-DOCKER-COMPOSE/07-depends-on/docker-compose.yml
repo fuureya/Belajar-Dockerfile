@@ -1,0 +1,38 @@
+services:
+  mariadb_example:
+    container_name: mariadb_example
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: contohdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - mariadb-network
+
+  phpmyadmin:
+    container_name: phpmyadmin_example
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    depends_on:
+      - mariadb_example
+    environment:
+      PMA_HOST: mariadb_example
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+    networks:
+      - mariadb-network
+
+volumes:
+  mariadb-data:
+
+networks:
+  mariadb-network:
+    driver: bridge
+    name: mariadb-network
