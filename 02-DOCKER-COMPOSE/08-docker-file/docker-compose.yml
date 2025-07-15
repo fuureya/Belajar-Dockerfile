@@ -1,0 +1,12 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "8080:80"
+
+  node-app:
+    build: ./app
+    container_name: node-app
+    ports:
+      - "3000:3000"
